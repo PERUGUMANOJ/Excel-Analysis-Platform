@@ -20,9 +20,10 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",
-      "https://excel-analysis-platform-2.vercel.app"
-    ],
+  "http://localhost:5173",
+  "https://excel-analysis-platform-tdkc.vercel.app"
+],
+
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
