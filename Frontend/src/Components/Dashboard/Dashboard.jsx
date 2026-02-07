@@ -6,6 +6,7 @@ import "./Dashboard.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ExcelVisualizer from "../ExcelVisualizer/ExcelVisualizer";
+import API_BASE_URL from "../api/api";
 
 export default function Dashboard() {
   const [user, setUser] = useState({ name: "", email: "", role: "" });
@@ -23,7 +24,7 @@ export default function Dashboard() {
 
     const fetchUser = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/auth/profile", {
+        const res = await fetch(`${API_BASE_URL}/api/auth/profile`, {
           method: "GET",
           credentials: "include",
         });
@@ -56,7 +57,7 @@ export default function Dashboard() {
     formData.append("file", selectedFile);
 
     try {
-      const res = await fetch("http://localhost:5000/api/files/upload", {
+      const res = await fetch(`${API_BASE_URL}/api/files/upload`, {
         method: "POST",
         body: formData,
         credentials: "include",
@@ -90,7 +91,7 @@ export default function Dashboard() {
       formData.append("yAxis", yAxis);
       formData.append("chartType", chartType);
 
-      const res = await fetch("http://localhost:5000/api/analyze-ai", {
+      const res = await fetch(`${API_BASE_URL}/api/analyze-ai`, {
         method: "POST",
         body: formData,
       });
@@ -125,6 +126,7 @@ export default function Dashboard() {
             <div className="dash-info-text">
               <h1 className="dash-greeting">Hello, {user.name}</h1>
               <p className="dash-intro">
+
                 Welcome to your Excel Analytics Dashboard, where data meets clarity.
                 Upload your Excel files and turn rows and columns into meaningful visual insights.
                 Navigate your performance, trends, and summaries—all in one place.

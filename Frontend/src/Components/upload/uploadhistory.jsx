@@ -3,6 +3,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import Navbar from "../Navbar/Navbar";
 import "./upload.css";
 import { toast } from "react-toastify";
+import API_BASE_URL from "../api/api";
 
 function HistoryPage() {
   const [uploadHistory, setUploadHistory] = useState([]);
@@ -11,7 +12,7 @@ function HistoryPage() {
 
   const fetchUploadHistory = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/files/history", {
+      const res = await fetch(`${API_BASE_URL}/api/files/history`, {
         credentials: "include",
       });
       const data = await res.json();

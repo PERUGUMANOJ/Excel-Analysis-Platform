@@ -15,10 +15,10 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cookieParser());
 
-// ✅ CORS — IMPORTANT (Vite runs on 5173)
+// ✅ CORS — IMPORTANT (Vite runs on 5173, Vercel for production)
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://excel-analysis-platform-2.vercel.app"], // Add your Vercel URL here if known
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
