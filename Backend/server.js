@@ -16,14 +16,21 @@ app.use(express.json());
 app.use(cookieParser());
 
 // ✅ CORS — IMPORTANT (Vite runs on 5173, Vercel for production)
+// ✅ CORS — IMPORTANT (Vite runs on 5173, Vercel for production)
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://excel-analysis-platform-2.vercel.app"], // Add your Vercel URL here if known
+    origin: [
+      "http://localhost:5173",
+      "https://excel-analysis-platform-2.vercel.app"
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+// ✅ Handle preflight explicitly (THIS FIXES YOUR ERROR)
+app.options("*", cors());
 
 // ✅ Test route
 app.get("/api/test", (req, res) => {
