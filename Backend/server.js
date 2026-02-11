@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cookieParser());
 
-// ✅ CORS Configuration
+// ✅ CORS
 app.use(
   cors({
     origin: [
@@ -23,15 +23,10 @@ app.use(
       "https://excel-analysis-platform-tdkc.vercel.app",
     ],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-// ✅ Handle preflight
-app.options("*", cors());
-
-// ✅ Root route (IMPORTANT for Render)
+// ✅ Root route
 app.get("/", (req, res) => {
   res.send("Excel Analysis Platform Backend is Running 🚀");
 });
@@ -46,7 +41,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/files", uploadRoute);
 app.use("/api", aiRoutes);
 
-// ✅ Connect DB & Start Server
+// ✅ DB + Server
 connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB connected");
