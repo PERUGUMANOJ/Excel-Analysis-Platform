@@ -15,23 +15,26 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cookieParser());
 
-// ✅ CORS — IMPORTANT (Vite runs on 5173, Vercel for production)
-// ✅ CORS — IMPORTANT (Vite runs on 5173, Vercel for production)
+// ✅ CORS Configuration
 app.use(
   cors({
     origin: [
-  "http://localhost:5173",
-  "https://excel-analysis-platform-tdkc.vercel.app"
-],
-
+      "http://localhost:5173",
+      "https://excel-analysis-platform-tdkc.vercel.app",
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-// ✅ Handle preflight explicitly (THIS FIXES YOUR ERROR)
+// ✅ Handle preflight
 app.options("*", cors());
+
+// ✅ Root route (IMPORTANT for Render)
+app.get("/", (req, res) => {
+  res.send("Excel Analysis Platform Backend is Running 🚀");
+});
 
 // ✅ Test route
 app.get("/api/test", (req, res) => {
@@ -43,12 +46,12 @@ app.use("/api/auth", authRoutes);
 app.use("/api/files", uploadRoute);
 app.use("/api", aiRoutes);
 
-// ✅ DB + Server
+// ✅ Connect DB & Start Server
 connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB connected");
-    app.listen(PORT, () =>
-      console.log(`Server running on port ${PORT}`)
-    );
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
   })
   .catch((err) => console.error(err));
